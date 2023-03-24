@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Viewer</title>
+</head>
+<body>
+    <h1>PDF Viewer</h1>
+    <iframe src="{% url 'pdf_viewer' %}?page=0" width="800" height="600" frameborder="0"></iframe>
+    <br>
+    <a href="{% url 'pdf_viewer' %}?page={{ page_num-1 }}">Previous page</a>
+    <a href="{% url 'pdf_viewer' %}?page={{ page_num+1 }}">Next page</a>
+</body>
+</html>

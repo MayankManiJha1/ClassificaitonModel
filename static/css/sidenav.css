@@ -1,0 +1,43 @@
+/* Style for the sidenav container */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: -200px;
+  background-color: #333;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+/* Style for the toggle button */
+.sidenav-toggle {
+  position: absolute;
+  top: 0;
+  right: -45px;
+  font-size: 30px;
+  margin-left: 50px;
+}
+
+/* Style for the list inside the sidenav */
+.sidenav-list {
+  margin-top: 50px;
+}
+
+/* Style for the links inside the list */
+.sidenav-list li {
+  padding: 10px;
+}
+
+/* Style for the main content */
+.main {
+  margin-left: 200px;
+  padding: 20px;
+}
+
+/* Style for the active link */
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
