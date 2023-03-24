@@ -51,8 +51,8 @@ class HomePage(TemplateView):
 		return JsonResponse({'success':True})
 
 
-class PDFViewer(View):
-    #template_name='test.html'
+class PDFViewer(TemplateView):
+    template_name='test.html'
     def get_context_data(self, request):
         file_name = "C:/Users/jhamayan/OneDrive - Ocwen Financial Corporation/Documents/Study/Classification/8011356311.pdf"
         image_path = "C:/Users/jhamayan/Downloads/LOGO.png"
