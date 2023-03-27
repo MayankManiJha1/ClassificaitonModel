@@ -13,13 +13,13 @@ class HomePage(TemplateView):
 
 	def get_context_data(self,**kwargs):
 		context = super().get_context_data(**kwargs)
-		file_name = "C:/Users/jhamayan/OneDrive - Ocwen Financial Corporation/Documents/Study/Classification/8011356311.pdf"
+		file_name="C:/Users/jhamayan/OneDrive - Ocwen Financial Corporation/Documents/Study/ClassificaitonModel/8011356311.pdf"
 		f_data=None
 		##open the file
 		with open(file_name,'rb') as f:
 			pdf_data=f.read()
 		#Split the pages
-		pdf_pages = pdf_data.split(b'%%EOF\n')
+		pdf_pages = pdf_data.split(b'%%EOF/n')
 
 		#save the PDF pages to the cache
 		cache.set('pdf_pages',pdf_pages)
@@ -53,12 +53,39 @@ class HomePage(TemplateView):
 
 class PDFViewer(TemplateView):
     template_name='test.html'
-    def get_context_data(self, request):
-        file_name = "C:/Users/jhamayan/OneDrive - Ocwen Financial Corporation/Documents/Study/Classification/8011356311.pdf"
-        image_path = "C:/Users/jhamayan/Downloads/LOGO.png"
-        with open(image_path,'rb') as image_data:
-        	wrapper=FileWrapper(image_data)
-        	response=HttpResponse(wrapper,content_type='image/jpeg')
-        	response['Content-Disposition']= 'inline; filename='+os.path.basename(image_path)
-        	return response
+import os
+from wsgiref.util import FileWrapper
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
+
+
+
+
+@csrf_exempt
+def stream_image(request):
+    file_path=r"C:\DEV_TEMP\1457490.jpg"
+    file_path=copy_file(file_path)
+    print(file_path)
+    try:
+        external_path = os.path.abspath(file_path)
+        if not external_path.startswith(os.path.abspath('media')):
+            # If the file is not inside the media directory, return a 403 Forbidden response
+            return HttpResponse("Access denied", status=403)
+        wrapper = FileWrapper(open(external_path, 'rb'))
+        response = HttpResponse(wrapper, content_type='image/jpeg')
+        response['Content-Disposition'] = 'inline; filename=' + os.path.basename(external_path)
+        return response
+    except FileNotFoundError:
+        return HttpResponse("File not found.")
+
+import shutil
+from django.conf import settings
+
+def copy_file(cpath):
+	abs_path=os.path.abspath(cpath)
+	final_path= os.path.join(settings.MEDIA_ROOT,os.path.basename(abs_path))
+	if os.path.exists(final_path):
+		os.remove(final_path)
+	shutil.copy(cpath,settings.MEDIA_ROOT)
+	return final_path
