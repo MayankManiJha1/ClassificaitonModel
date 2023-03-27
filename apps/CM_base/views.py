@@ -53,19 +53,6 @@ class HomePage(TemplateView):
 
 class PDFViewer(TemplateView):
     template_name='test.html'
-<<<<<<< HEAD
-=======
-    def get_context_data(self, request):
-        file_name = "C:/Users/jhamayan/OneDrive - Ocwen Financial Corporation/Documents/Study/Classification/8011356311.pdf"
-        image_path = "C:/Users/jhamayan/Downloads/LOGO.png"
-        with open(image_path,'rb') as image_data:
-        	wrapper=FileWrapper(image_data)
-        	response=HttpResponse(wrapper,content_type='image/jpeg')
-        	response['Content-Disposition']= 'inline; filename='+os.path.basename(image_path)
-        	return response
->>>>>>> f2cfea71444374738c04a2da305bf6d3fdf4d0c8
-
-
 import os
 from wsgiref.util import FileWrapper
 from django.http import HttpResponse
