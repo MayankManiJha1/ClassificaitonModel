@@ -76,6 +76,7 @@ class HomePage(TemplateView):
 
 
 
+
 class PDFViewer(TemplateView):
     template_name='test.html'
 	
