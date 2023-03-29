@@ -6,7 +6,9 @@
 </head>
 <body>
     <h1>PDF Viewer</h1>
-    <iframe src="data:image/jpeg;base64,{{ image}}" width="800" height="600" frameborder="0" alt="PDF Data"></iframe>
+    <iframe src="data:image/jpeg;base64,{{image}}" width="800" height="600" frameborder="0" alt="PDF Data"></iframe>
     <br>
+    <a href="{% url 'test' image_path=image_path page_no=prev_page_no %}">Prev</a>
+    <a href="{% url 'test' image_path=image_path page_no=next_page_no %}">Next</a>
 </body>
 </html>

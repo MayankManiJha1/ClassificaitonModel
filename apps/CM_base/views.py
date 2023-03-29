@@ -54,17 +54,20 @@ class PDFViewer(TemplateView):
     template_name='test.html'
 	
     def get_context_data(self, **kwargs):
-        file_path=r"C:\DEV_TEMP\1457490.jpg"
-        #file_path=self.copy_file(file_path)
+        file_path=r"C:\DEV_TEMP\TEMP\page_"
         context=super().get_context_data(**kwargs)
-        pdf_name=self.request.GET.get('pdf_name') if self.request.GET.get('pdf_name') else None
-        page_no=self.request.GET.get('page_no') if self.request.GET.get('page_no') else None
+        pdf_name=kwargs['image_path']
+        page_no= kwargs['page_no'] if kwargs['page_no'] else 0
+        #print(page_no)
         context['pdf_name']=pdf_name
         context['page_no']=page_no
+        file_path+=str(page_no)+'.jpg'
         with open(file_path,'rb') as img:
             img_data=img.read()
         img_data=base64.b64encode(img_data).decode('utf-8')
         context['image']=img_data
+        context['next_page_no']=page_no+1
+        context['prev_page_no']=page_no-1 if (page_no-1 )>=0 else 0
         return context
     
 

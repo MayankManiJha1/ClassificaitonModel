@@ -1,7 +1,7 @@
 import os
 import shutil
 import traceback
-from send2trash import send2trash
+#from send2trash import send2trash
 import PyPDF2
 from pdf2image import convert_from_path
 
@@ -19,6 +19,8 @@ def split(file_path,out_path):
         print("files to be split:",file_path)
         images = convert_from_path(file_path)
         for i in range(len(images)):
-            images[i].save(out_path+'page_'+file_path.split('.')[0]+ str(i) +'.jpg', 'JPEG')
+            images[i].save(out_path+'page_'+str(i) +'.jpg', 'JPEG')
     except:
         traceback.print_exc()
+
+#split(r"C:\DEV_TEMP\8015269098 welcome.pdf","C:\DEV_TEMP\TEMP\\")
