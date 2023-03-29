@@ -6,9 +6,28 @@
 </head>
 <body>
     <h1>PDF Viewer</h1>
+    <div width="50%">
     <iframe src="data:image/jpeg;base64,{{image}}" width="800" height="600" frameborder="0" alt="PDF Data"></iframe>
+    </div>
     <br>
     <a href="{% url 'test' image_path=image_path page_no=prev_page_no %}">Prev</a>
     <a href="{% url 'test' image_path=image_path page_no=next_page_no %}">Next</a>
+    <br>
+    <div width="50%">
+        <form method="post">
+            {% csrf_token %}
+            <label for="loan_number">Loan Number:</label>
+            <input type="text" id="loan_number" name="loan_number"><br><br>
+            <label for="doc_id">Document ID:</label>
+            <select id="doc_id" name="doc_id">
+              <option value="doc1">Document 1</option>
+              <option value="doc2">Document 2</option>
+              <option value="doc3">Document 3</option>
+            </select><br><br>
+            <button type="submit">Submit</button>
+          </form>
+    </div>
+    
+    
 </body>
 </html>

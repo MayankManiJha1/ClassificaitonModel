@@ -22,5 +22,3 @@ def split(file_path,out_path):
             images[i].save(out_path+'page_'+str(i) +'.jpg', 'JPEG')
     except:
         traceback.print_exc()
-
-#split(r"C:\DEV_TEMP\8015269098 welcome.pdf","C:\DEV_TEMP\TEMP\\")
