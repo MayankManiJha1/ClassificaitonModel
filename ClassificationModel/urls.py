@@ -20,6 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('home/',HomePage.as_view(),name='home'),
-    path('test/',PDFViewer.as_view(),name='test'),
-    
+    path('test/<str:image_path>/<int:page_no>/',PDFViewer.as_view(),name='test'),
+
 ]
