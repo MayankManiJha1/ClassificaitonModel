@@ -13,19 +13,17 @@
             <!-- Blog entries-->
             <div class="col-lg-8">
                 <!-- Featured blog post-->
-                {% for page in pdf_pages %}
-	                <div class="card mb-4">
-	                    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                    <div class="card mb-4">
+	                    <a href="#!"><img class="card-img-top" src="data:image/jpeg;base64,{{image}}" alt="..." /></a>
 	                    <div class="card-body">
-	                        <a class="btn btn-primary" href="#!">← Preious</a>
-	                        <a class="btn btn-primary" href="#!">Next →</a>
+	                        <a class="btn btn-primary" href="{% url 'home'  pdf_path=pdf_name page_no=prev_page_no %}">← Preious</a>
+	                        <a class="btn btn-primary" href="{% url 'home' pdf_path=pdf_name page_no=next_page_no %}">Next →</a>
 	                        <p>
 	                        <div class="small text-muted">Document Name:{{pdf_name}}</div>
-	                        <div class="small text-muted">Page Number:{{page_number}}</div>
+	                        <div class="small text-muted">Page Number:{{page_no}}</div>
 	                        </p>
 	                    </div>
 	                </div>
-                {% endfor %}
                 <nav aria-label="Pagination">
                     <hr class="my-0" />
                     <ul class="pagination justify-content-center my-4">
@@ -61,11 +59,14 @@
 	                            <div class="col-sm-12">
 	                                <ul class="list-unstyled mb-0">
 	                                    <input class="form-control" type="text" placeholder="Loan Number" name="loan_number"/>
-                                        <li><select name="DocType" class="dropdown dropdown-item"> Test
+                                        <li><select name="doc_id" class="dropdown dropdown-item"> Test
                                         	<option value="">Select Doc-Type</option>
-                                        	</select>
+                                            <option value="1">Doc-1</option>
+                                            <option value="2">Doc-2</option>
+                                            <option value="3">Doc-3</option>
+                                            </select>
                                         </li>
-	                                    <li><button class="btn btn-primary" id="button-search" type="button">Save Next!</button></li>
+	                                    <li><button class="btn btn-primary" id="button-search" type="submit">Save Next!</button></li>
 	                                </ul>
 	                            </div>
 	                        </div>

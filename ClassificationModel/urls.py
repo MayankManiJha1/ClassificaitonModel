@@ -19,7 +19,7 @@ from apps.CM_base.views import HomePage,PDFViewer
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('home/',HomePage.as_view(),name='home'),
+    path('home/<str:pdf_path>/<int:page_no>/',HomePage.as_view(),name='home'),
     path('test/<str:image_path>/<int:page_no>/',PDFViewer.as_view(),name='test'),
 
 ]

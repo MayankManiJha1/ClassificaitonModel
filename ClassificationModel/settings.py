@@ -137,3 +137,12 @@ try:
     from .local_settings import *
 except ImportError:
     print("Can not import database")
+
+'''
+CACHES = {
+   'default': {
+      'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+      'LOCATION': BASE_DIR / 'cache',
+   }
+}
+'''
