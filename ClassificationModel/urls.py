@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from apps.CM_base.views import HomePage,PDFViewer,stream_image
+from apps.CM_base.views import HomePage,PDFViewer
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('home/',HomePage.as_view(),name='home'),
     path('test/',PDFViewer.as_view(),name='test'),
-    path('stream-image/',stream_image,name='stream-image'),
+    
 ]
