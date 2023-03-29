@@ -48,21 +48,6 @@ class HomePage(TemplateView):
         #save the page data to the cache
         cache.set(f'page_data_{page_number}',page_data)
 
-        #If this is the last page, combine all the page data into a single dict
-        if page_number == cache.get('num_pages'):
-            all_page_data={}
-            for i in range(1,page_number+1):
-                all_pages_data.update(cache.get(f'page_data_{i}'))
-
-            #Save the combined data
-            cache.set('all_page_data',all_page_data)
-
-        #return JSON stating added all the data and it was success
-        return JsonResponse({'success':True})
-
-
-
-
 
 
 class PDFViewer(TemplateView):
