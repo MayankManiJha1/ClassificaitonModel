@@ -1,17 +1,19 @@
 from django.urls import reverse
 from django.core.cache import cache
+from django.contrib import messages
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView,View
 ######### Custom Libs for other functions
 from wsgiref.util import FileWrapper
+from datetime import datetime
 import os
 import shutil
 import base64
 ####### Local Libs
 from .util import *
-
+from .models import ModelDB
 
 # Create your views here.
 
@@ -50,11 +52,38 @@ class HomePage(TemplateView):
         
         #If next page load next page else show the final page and move to the next doc
         total_pages=cache.get(pdf_name)
-        if total_pages['total_pg']>page_no:
+        if total_pages['total_pg']>(page_no+1):
             return redirect('home',pdf_path=pdf_name,page_no=page_no+1)
         else:
-            print("last page")
+            data=self.save_details(request,**kwargs)
+            doc_details=ModelDB()
+            doc_details.KEY_ID='001'
+            doc_details.TASK_NM='LMIP'
+            doc_details.CREATE_TIME=datetime.now()
+            doc_details.TSK_INFO=data
+            doc_details.save(using='RPA_DB_DEV')
+            print("Data Saved")
+            context=self.get_context_data(**kwargs)
+            print(context.keys())
+            # Success message
+            messages.success(request,'Data Saved Successfully!')
+            # Same Page with the success Message
+            return self.render_to_response(context)
+    
+    def save_details(self,request,**kwargs):
+        pdf_name=kwargs.get('pdf_path')
+        page_no=kwargs.get('page_no')
+        data={}
+        for i in range(page_no):
+            cache_key=f'{pdf_name}_{i}'
+            cache_data=cache.get(cache_key)
+            if cache_data is None:
+                continue
+            data[i]=cache_data
+        return data
+        
 
+    
     def getImage(self,pdf_nm,page_no):
         file_path="C:\DEV_TEMP\TEMP\\"
         file_nm="page_"
