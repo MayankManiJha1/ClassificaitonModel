@@ -8,13 +8,17 @@
 
 
 {% block content %}
-	<div class="container">
+    <div class="container">
+        <div class="row">
+            {% block message %}
+            {% endblock %}
+        </div>
         <div class="row">
             <!-- Blog entries-->
             <div class="col-lg-8">
                 <!-- Featured blog post-->
                     <div class="card mb-4">
-	                    <a href="#!"><img class="card-img-top" src="data:image/jpeg;base64,{{image}}" alt="..." /></a>
+	                    <img class="card-img-top" src="data:image/jpeg;base64,{{image}}" alt="..." />
 	                    <div class="card-body">
 	                        <a class="btn btn-primary" href="{% url 'home'  pdf_path=pdf_name page_no=prev_page_no %}">← Preious</a>
 	                        <a class="btn btn-primary" href="{% url 'home' pdf_path=pdf_name page_no=next_page_no %}">Next →</a>
